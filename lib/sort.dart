@@ -8,10 +8,35 @@ class SortPages extends StatefulWidget {
 }
 
 class _SortPagesState extends State<SortPages> {
+  // variabel untuk form
   final formKey = GlobalKey<FormState>();
   // variabel untuk mengahapus inputan
   TextEditingController _textController = TextEditingController();
   var list = [];
+  // Declare listBeforeSorting as an instance variable
+  var listBeforeSorting = [];
+
+  // final tecStlhUrut = TextEditingController();
+
+  void sorting(List list) {
+    int panjang = list.length;
+
+    for (int i = 0; i < panjang - 1; i++) {
+      int imaks = i;
+
+      // Mencari indeks nilai maksimum dalam sisa list
+      for (int j = i + 1; j < panjang; j++) {
+        if (list[j].compareTo(list[imaks]) > 0) {
+          imaks = j;
+        }
+      }
+
+      // Menukar nilai maksimum dengan nilai pada indeks i
+      int temp = list[i];
+      list[i] = list[imaks];
+      list[imaks] = temp;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,61 +156,104 @@ class _SortPagesState extends State<SortPages> {
                 SizedBox(
                   height: 10,
                 ),
+                Container(
+                  height: 30,
+                  width: double.infinity,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'DATA SEBELUM DI SORTING',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.green[200],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                  ),
+                ),
                 // Bagian Input Data Yang Sudah Di tentukan di Atas (TAHAP 2)
                 Container(
-                  child: Text('Data : ${list}'),
+                  child: Text('${list}'),
                   padding: EdgeInsets.all(10),
                   height: 130,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10)),
                     color: Colors.grey[350],
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                ButtonBar(
-                  alignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(
-                          () {},
-                        );
-                      },
-                      child: Text("Next"),
-                    ),
-                  ],
-                ),
                 SizedBox(
                   height: 10,
                 ),
+                Container(
+                  height: 30,
+                  width: double.infinity,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'DATA SETELAH DI SORTING',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.green[200],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                  ),
+                ),
                 // Bagian Data Yang Sudah Di Tentukan (TAHAP 3)
-                TextField(
-                  maxLines: 5,
+                TextFormField(
+                  maxLines: 4,
                   readOnly: true,
                   // controller: tecStlhUrut,
                   decoration: InputDecoration(
-                    labelText: 'Data sebelum pengurutan',
+                    hintText: '${list}',
+                    fillColor: Colors.grey[350],
+                    filled: true,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                // Bagian Data Yang Sudah Di Tentukan (TAHAP 3)
-                TextField(
-                  maxLines: 5,
-                  readOnly: true,
-                  // controller: tecStlhUrut,
-                  decoration: InputDecoration(
-                    labelText: 'Data setelah pengurutan',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: () {
+                      List<int> listBeforeSorting = List.from(list);
+                      setState(() {
+                        sorting(list);
+                        // Menampilkan list sebelum diurutkan
+                        debugPrint('Sebelum sorting: ${listBeforeSorting}');
+                        // Menampilkan list setelah diurutkan
+                        debugPrint('Setelah sorting: ${list}');
+                      });
+                    },
+                    child: Text('URUTKAN'),
                   ),
                 ),
               ],

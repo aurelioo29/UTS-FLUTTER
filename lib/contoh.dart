@@ -146,7 +146,7 @@ class _BubleSortPageState extends State<BubleSortPage> {
                           tecSblmUrut.text = dataNotSort;
 
                           bubbleSort(list);
-                          debugPrint('Urut data : ${list}');
+                          Text('Urut data : ${list}');
                         });
                       }
                     },
