@@ -9,7 +9,6 @@ class SortPages extends StatefulWidget {
 
 class _SortPagesState extends State<SortPages> {
   final formKey = GlobalKey<FormState>();
-  final tecData = TextEditingController();
   // variabel untuk mengahapus inputan
   TextEditingController _textController = TextEditingController();
   var list = [];
@@ -31,6 +30,9 @@ class _SortPagesState extends State<SortPages> {
                 // Bagian Input Data Ingin Di Sorting (TAHAP 1)
                 TextFormField(
                   controller: _textController,
+                  validator: (value) => value == null || value.isEmpty
+                      ? 'Data nya masih kosong'
+                      : null,
                   decoration: InputDecoration(
                     labelText: "Masukan berapa data yang ingin di sorting",
                     border: OutlineInputBorder(
@@ -48,13 +50,17 @@ class _SortPagesState extends State<SortPages> {
                       onPressed: () {
                         setState(
                           () {
-                            if (tecData.text.length != 0) {
-                              int data = int.parse(tecData.text.toString());
+                            if (_textController.text.length != 0) {
+                              int data =
+                                  int.parse(_textController.text.toString());
                               list.add(data);
+                              _textController.text = "";
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text('Data inputan masih kosong'),
+                                  backgroundColor: Colors.red,
+                                  content:
+                                      Text('Data inputan masih kosong !!!'),
                                 ),
                               );
                             }
@@ -70,22 +76,55 @@ class _SortPagesState extends State<SortPages> {
                             if (_textController.text.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content:
-                                      Text('Data di dalam inputan tidak ada'),
+                                  backgroundColor: Colors.red,
+                                  content: Text(
+                                      'Data di dalam inputan tidak ada !!!'),
                                 ),
                               );
                             } else {
+                              list.clear();
                               _textController.clear();
+                              _textController.text = "";
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text('Data berhasil di hapus'),
+                                  backgroundColor: Colors.green,
+                                  content: Text(
+                                      'Data inputan berhasil di hapus !!!'),
                                 ),
                               );
                             }
                           },
                         );
                       },
-                      child: Text("Hapus"),
+                      child: Text("Hapus Inputan"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(
+                          () {
+                            if (list.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: Colors.red,
+                                  content:
+                                      Text('Tidak ada data yang tersedia !!!'),
+                                ),
+                              );
+                            } else {
+                              list.clear();
+                              _textController.clear();
+                              _textController.text = "";
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: Colors.green,
+                                  content: Text('Data berhasil di hapus !!!'),
+                                ),
+                              );
+                            }
+                          },
+                        );
+                      },
+                      child: Text("Clear"),
                     ),
                   ],
                 ),
@@ -93,13 +132,14 @@ class _SortPagesState extends State<SortPages> {
                   height: 10,
                 ),
                 // Bagian Input Data Yang Sudah Di tentukan di Atas (TAHAP 2)
-                TextField(
-                  maxLines: 2,
-                  decoration: InputDecoration(
-                    labelText: 'Data : ${list}',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                Container(
+                  child: Text('Data : ${list}'),
+                  padding: EdgeInsets.all(10),
+                  height: 130,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey[350],
                   ),
                 ),
                 SizedBox(
