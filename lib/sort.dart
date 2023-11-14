@@ -10,39 +10,63 @@ class SortPages extends StatefulWidget {
 class _SortPagesState extends State<SortPages> {
   // variabel untuk form
   final formKey = GlobalKey<FormState>();
-  // variabel untuk mengahapus inputan
   TextEditingController _textController = TextEditingController();
   var list = [];
-  // Declare listBeforeSorting as an instance variable
   var listBeforeSorting = [];
 
-  // final tecStlhUrut = TextEditingController();
+  // void sorting(List list) {
+  //   int panjang = list.length;
+
+  //   for (int i = 0; i < panjang - 1; i++) {
+  //     int imaks = i;
+
+  //     // Mencari indeks nilai maksimum dalam sisa list
+  //     for (int j = i + 1; j < panjang; j++) {
+  //       if (list[j].compareTo(list[imaks]) > 0) {
+  //         imaks = j;
+  //       }
+  //     }
+
+  //     // Menukar nilai maksimum dengan nilai pada indeks i
+  //     int temp = list[i];
+  //     list[i] = list[imaks];
+  //     list[imaks] = temp;
+  //   }
+  // }
 
   void sorting(List list) {
     int panjang = list.length;
 
     for (int i = 0; i < panjang - 1; i++) {
-      int imaks = i;
+      int imin = i;
 
-      // Mencari indeks nilai maksimum dalam sisa list
+      // Mencari indeks nilai minimum dalam sisa list
       for (int j = i + 1; j < panjang; j++) {
-        if (list[j].compareTo(list[imaks]) > 0) {
-          imaks = j;
+        if (list[j].compareTo(list[imin]) < 0) {
+          imin = j;
         }
       }
 
-      // Menukar nilai maksimum dengan nilai pada indeks i
+      // Menukar nilai minimum dengan nilai pada indeks i
       int temp = list[i];
-      list[i] = list[imaks];
-      list[imaks] = temp;
+      list[i] = list[imin];
+      list[imin] = temp;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amber,
       appBar: AppBar(
-        title: Text("Maximum Sort"),
+        title: Text(
+          "Maximum Sort (Ascending)",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
@@ -79,6 +103,7 @@ class _SortPagesState extends State<SortPages> {
                               int data =
                                   int.parse(_textController.text.toString());
                               list.add(data);
+                              listBeforeSorting.add(data);
                               _textController.text = "";
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -98,35 +123,6 @@ class _SortPagesState extends State<SortPages> {
                       onPressed: () {
                         setState(
                           () {
-                            if (_textController.text.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.red,
-                                  content: Text(
-                                      'Data di dalam inputan tidak ada !!!'),
-                                ),
-                              );
-                            } else {
-                              list.clear();
-                              _textController.clear();
-                              _textController.text = "";
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.green,
-                                  content: Text(
-                                      'Data inputan berhasil di hapus !!!'),
-                                ),
-                              );
-                            }
-                          },
-                        );
-                      },
-                      child: Text("Hapus Inputan"),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(
-                          () {
                             if (list.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -137,6 +133,7 @@ class _SortPagesState extends State<SortPages> {
                               );
                             } else {
                               list.clear();
+                              listBeforeSorting.clear();
                               _textController.clear();
                               _textController.text = "";
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -179,7 +176,7 @@ class _SortPagesState extends State<SortPages> {
                 ),
                 // Bagian Input Data Yang Sudah Di tentukan di Atas (TAHAP 2)
                 Container(
-                  child: Text('${list}'),
+                  child: Text('${listBeforeSorting}'),
                   padding: EdgeInsets.all(10),
                   height: 130,
                   width: double.infinity,
@@ -192,6 +189,22 @@ class _SortPagesState extends State<SortPages> {
                 ),
                 SizedBox(
                   height: 10,
+                ),
+                Container(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: () {
+                      List<int> listBeforeSorting = List.from(list);
+                      setState(() {
+                        sorting(list);
+                        // Menampilkan list sebelum diurutkan
+                        debugPrint('Sebelum sorting: ${listBeforeSorting}');
+                        // Menampilkan list setelah diurutkan
+                        debugPrint('Setelah sorting: ${list}');
+                      });
+                    },
+                    child: Text('URUTKAN'),
+                  ),
                 ),
                 SizedBox(
                   height: 10,
@@ -218,42 +231,16 @@ class _SortPagesState extends State<SortPages> {
                   ),
                 ),
                 // Bagian Data Yang Sudah Di Tentukan (TAHAP 3)
-                TextFormField(
-                  maxLines: 4,
-                  readOnly: true,
-                  // controller: tecStlhUrut,
-                  decoration: InputDecoration(
-                    hintText: '${list}',
-                    fillColor: Colors.grey[350],
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
                 Container(
+                  child: Text('${list}'),
+                  padding: EdgeInsets.all(10),
+                  height: 130,
                   width: double.infinity,
-                  child: FilledButton(
-                    onPressed: () {
-                      List<int> listBeforeSorting = List.from(list);
-                      setState(() {
-                        sorting(list);
-                        // Menampilkan list sebelum diurutkan
-                        debugPrint('Sebelum sorting: ${listBeforeSorting}');
-                        // Menampilkan list setelah diurutkan
-                        debugPrint('Setelah sorting: ${list}');
-                      });
-                    },
-                    child: Text('URUTKAN'),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10)),
+                    color: Colors.grey[350],
                   ),
                 ),
               ],
