@@ -39,7 +39,7 @@ class _SortPagesState extends State<SortPages> {
     return Scaffold(
       backgroundColor: Colors.grey[600],
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Maximum Sort (Ascending)",
           style: TextStyle(
               fontSize: 25,
@@ -61,7 +61,7 @@ class _SortPagesState extends State<SortPages> {
                     bottomLeft: Radius.circular(80),
                   ),
                   color: Colors.deepOrangeAccent),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
@@ -75,7 +75,7 @@ class _SortPagesState extends State<SortPages> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
@@ -93,32 +93,32 @@ class _SortPagesState extends State<SortPages> {
                           ? 'Data nya masih kosong'
                           : null,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(
+                        prefixIcon: const Icon(
                           Icons.format_list_numbered_rounded,
                           size: 40,
                           color: Colors.black,
                         ),
                         hintText: "Input angka yang ingin di sorting",
-                        hintStyle: TextStyle(color: Colors.black),
+                        hintStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                           borderSide:
-                              BorderSide(color: Colors.blue, width: 2.5),
+                              const BorderSide(color: Colors.blue, width: 2.5),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                           borderSide:
-                              BorderSide(color: Colors.blue, width: 2.5),
+                              const BorderSide(color: Colors.blue, width: 2.5),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(right: 150),
                         ),
                         ElevatedButton(
@@ -132,7 +132,7 @@ class _SortPagesState extends State<SortPages> {
                                 _textController.text = "";
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                     backgroundColor: Colors.red,
                                     content:
                                         Text('Data inputan masih kosong !!!'),
@@ -145,7 +145,7 @@ class _SortPagesState extends State<SortPages> {
                             backgroundColor: const Color.fromARGB(255, 139, 205,
                                 141), // Ganti warna latar belakang sesuai keinginan
                           ),
-                          child: Text(
+                          child: const Text(
                             "Input",
                             style: TextStyle(color: Colors.black),
                           ),
@@ -155,7 +155,7 @@ class _SortPagesState extends State<SortPages> {
                             setState(() {
                               if (list.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                     backgroundColor: Colors.red,
                                     content: Text(
                                         'Tidak ada data yang tersedia !!!'),
@@ -167,7 +167,7 @@ class _SortPagesState extends State<SortPages> {
                                 _textController.clear();
                                 _textController.text = "";
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                     backgroundColor: Colors.red,
                                     content: Text('Data berhasil dihapus !!!'),
                                   ),
@@ -179,20 +179,20 @@ class _SortPagesState extends State<SortPages> {
                             backgroundColor: const Color.fromARGB(255, 251, 128,
                                 90), // Ganti warna latar belakang sesuai keinginan
                           ),
-                          child: Text(
+                          child: const Text(
                             "Clear",
                             style: TextStyle(color: Colors.black),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
                       height: 30,
                       width: double.infinity,
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           'DATA SEBELUM DI SORTING',
@@ -204,7 +204,7 @@ class _SortPagesState extends State<SortPages> {
                       ),
                       decoration: BoxDecoration(
                         color: Colors.green[200],
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                         ),
@@ -215,20 +215,20 @@ class _SortPagesState extends State<SortPages> {
                       alignment: Alignment.center,
                       child: Text(
                         '${listBeforeSorting}',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 19, fontWeight: FontWeight.bold),
                       ),
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       height: 100,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(10),
                             bottomRight: Radius.circular(10)),
                         color: Colors.grey[350],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
@@ -246,16 +246,16 @@ class _SortPagesState extends State<SortPages> {
                         },
                         style:
                             FilledButton.styleFrom(backgroundColor: Colors.red),
-                        child: Text('URUTKAN'),
+                        child: const Text('URUTKAN'),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
                       height: 30,
                       width: double.infinity,
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           'DATA SETELAH DI SORTING',
@@ -267,7 +267,7 @@ class _SortPagesState extends State<SortPages> {
                       ),
                       decoration: BoxDecoration(
                         color: Colors.green[200],
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                         ),
@@ -278,14 +278,14 @@ class _SortPagesState extends State<SortPages> {
                       alignment: Alignment.center,
                       child: Text(
                         '${list}',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 19, fontWeight: FontWeight.bold),
                       ),
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       height: 100,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(10),
                           bottomRight: Radius.circular(10),
                         ),
