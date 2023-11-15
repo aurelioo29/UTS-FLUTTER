@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_uts/contoh.dart';
 import 'package:flutter_uts/sort.dart';
 // import 'package:flutter_uts/sort.dart';
 
@@ -36,7 +35,6 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const SortPages(),
-      //BubleSortPage()
     );
   }
 }
