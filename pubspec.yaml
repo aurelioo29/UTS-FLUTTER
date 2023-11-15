@@ -76,6 +76,9 @@ flutter:
     - family: Agbalumo
       fonts:
         - asset: assets/fonts/Agbalumo-Regular.ttf
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
           # style: italic
   #   - family: Trajan Pro
   #     fonts:

@@ -37,7 +37,7 @@ class _SortPagesState extends State<SortPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber,
+      backgroundColor: Colors.grey[600],
       appBar: AppBar(
         title: Text(
           "Maximum Sort (Ascending)",
@@ -54,22 +54,24 @@ class _SortPagesState extends State<SortPages> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.2,
-              // color: const Color.fromARGB(255, 0, 140, 255),
+              height: MediaQuery.of(context).size.height * 0.19,
               decoration: const BoxDecoration(
-                  borderRadius:
-                      BorderRadius.only(bottomRight: Radius.circular(100)),
-                  color: Colors.green),
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(80),
+                    bottomLeft: Radius.circular(80),
+                  ),
+                  color: Colors.deepOrangeAccent),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        'https://voffice.co.id/jakarta-virtual-office/business-tips/wp-content/uploads/2018/11/biografi-bill-gates.jpg'),
+                  Text(
+                    'Nama : Aurelio Lucio Lie \n Nim : 223303030427 \n Kelas : 3 Malam A',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontFamily: 'Poppins'),
                   ),
-                  Text('Ini adalah widget Container',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black, fontSize: 30)),
                 ],
               ),
             ),
@@ -77,21 +79,36 @@ class _SortPagesState extends State<SortPages> {
               height: 10,
             ),
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(15),
               child: Form(
                 key: formKey,
                 child: Column(
                   children: [
                     // Bagian Input Data Ingin Di Sorting (TAHAP 1)
                     TextFormField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
                       controller: _textController,
                       validator: (value) => value == null || value.isEmpty
                           ? 'Data nya masih kosong'
                           : null,
                       decoration: InputDecoration(
-                        labelText: "Masukan berapa data yang ingin di sorting",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                        prefixIcon: Icon(
+                          Icons.format_list_numbered_rounded,
+                          size: 40,
+                          color: Colors.black,
+                        ),
+                        hintText: "Input angka yang ingin di sorting",
+                        hintStyle: TextStyle(color: Colors.black),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide:
+                              BorderSide(color: Colors.blue, width: 2.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide:
+                              BorderSide(color: Colors.blue, width: 2.5),
                         ),
                       ),
                     ),
@@ -124,7 +141,14 @@ class _SortPagesState extends State<SortPages> {
                               }
                             });
                           },
-                          child: Text("Input"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 139, 205,
+                                141), // Ganti warna latar belakang sesuai keinginan
+                          ),
+                          child: Text(
+                            "Input",
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -144,14 +168,21 @@ class _SortPagesState extends State<SortPages> {
                                 _textController.text = "";
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    backgroundColor: Colors.green,
+                                    backgroundColor: Colors.red,
                                     content: Text('Data berhasil dihapus !!!'),
                                   ),
                                 );
                               }
                             });
                           },
-                          child: Text("Clear"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 251, 128,
+                                90), // Ganti warna latar belakang sesuai keinginan
+                          ),
+                          child: Text(
+                            "Clear",
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
                       ],
                     ),
